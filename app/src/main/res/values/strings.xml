@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Text Recognizer</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="retake">Retake</string>
+    <string name="scan_result">Scan Result</string>
+    <string name="upload">Upload</string>
+    <string name="save">Save</string>
+    <string name="text_saved">Text saved</string>
+    <string name="warning">Warning</string>
+    <string name="permission_message">To use this app, granting camera permission is required. Please grant to continue.</string>
+    <string name="grant">Grant</string>
+    <string name="exit">Exit</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_title">Oupss.. Sorry!</string>
+    <string name="retry">Retry</string>
+    <string name="collection">Collection</string>
+    <string name="no_data_info">No data available yet.</string>
+</resources>
