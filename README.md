@@ -1,5 +1,6 @@
-# TEXT RECOGNIZER
-==================
+## TEXT RECOGNIZER
+
+[![build](https://github.com/annasta13/text-recognition/actions/workflows/build.yml/badge.svg)](https://github.com/annasta13/text-recognition/actions/workflows/build.yml)
 
 This is an app elaborating camera feature to take image and use the result to be scanned using MLKit Text Recognition.
 
