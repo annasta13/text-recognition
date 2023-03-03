@@ -4,6 +4,7 @@ import com.example.textrecognizer.asDataScanned
 import com.example.textrecognizer.data.model.DataScanned
 import com.example.textrecognizer.util.Constants
 import com.google.firebase.firestore.FirebaseFirestore
+import timber.log.Timber
 
 class RepositoryImpl(private val database: FirebaseFirestore) : Repository {
 
@@ -16,9 +17,12 @@ class RepositoryImpl(private val database: FirebaseFirestore) : Repository {
             .add(data)
             .addOnSuccessListener { documentReference ->
                 onSuccess(documentReference.id)
+                Timber.d("check document added with ID: ${documentReference.id}")
+                getDataByDocimentId(documentReference.id, onSuccess = {}, onFailure = {})
             }
             .addOnFailureListener { e ->
                 onFailure(e.message.toString())
+                Timber.w("check error storing document", e)
             }
     }
 
@@ -31,12 +35,14 @@ class RepositoryImpl(private val database: FirebaseFirestore) : Repository {
             database.collection(Constants.collectionName)
                 .get()
                 .addOnSuccessListener { result ->
-                    for (document in result) {
+                    result.forEach { document ->
                         if (document.id == documentId) onSuccess(document.asDataScanned())
+                        Timber.d("check doesUserExists ${document.id} => ${document.data}")
                     }
                 }
                 .addOnFailureListener { exception ->
                     onFailure(exception.message.toString())
+                    Timber.w("check Error getting documents.", exception)
                 }
         }.onFailure { exception -> onFailure(exception.message.toString()) }
     }
@@ -51,13 +57,14 @@ class RepositoryImpl(private val database: FirebaseFirestore) : Repository {
                 .get()
                 .addOnSuccessListener { result ->
                     val collections = mutableListOf<DataScanned>()
-                    for (document in result) {
+                    result.forEach { document ->
                         if (document["user_id"] as String == userId) collections.add(document.asDataScanned())
                     }
                     onSuccess(collections.toList())
                 }
                 .addOnFailureListener { exception ->
                     onFailure(exception.message.toString())
+                    Timber.w("check Error getting documents.", exception)
                 }
         }.onFailure { exception -> onFailure(exception.message.toString()) }
     }
